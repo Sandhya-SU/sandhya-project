@@ -33,10 +33,21 @@ public class calculator {
 
 	private static int sum(String[] numbers) {
 		int total = 0;
-		for (String number : numbers) {
-			total += toInt(number);
-		}
+		String negString = "";
 
+		for (String number : numbers) {
+			if (toInt(number) < 0) {
+				if (negString.equals(""))
+					negString = number;
+				else
+					negString += ("," + number);
+			} else {
+				total+=toInt(number);
+			}
+		}
+			if (!negString.equals("")) {
+				throw new IllegalArgumentException("Negatives not allowed: " + negString);
+			}
 		return total;
 	}
 

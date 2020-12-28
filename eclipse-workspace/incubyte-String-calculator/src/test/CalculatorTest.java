@@ -48,12 +48,27 @@ public class CalculatorTest {
 	public void testNewLine1() {
 		assertEquals(1, calculator.add("1,\n"));
 	}
-	
-	 @Test
-	    public void testOtherDelimiter(){
-	    	assertEquals(3, calculator.add("//;\n1;2"));
-	    }
-	 
-	 
+
+	@Test
+	public void testOtherDelimiter() {
+		assertEquals(3, calculator.add("//;\n1;2"));
+	}
+
+	@Test
+    public void testNegativeNumver(){
+    	try {
+			calculator.add("-1,2");
+		}
+		catch (IllegalArgumentException e){
+			assertEquals(e.getMessage(), "Negatives not allowed: -1");
+		}
+
+		try {
+			calculator.add("2,-4,3,-5");
+		}
+		catch (IllegalArgumentException e){
+			assertEquals(e.getMessage(), "Negatives not allowed: -4,-5");
+		}
+    }
 
 }

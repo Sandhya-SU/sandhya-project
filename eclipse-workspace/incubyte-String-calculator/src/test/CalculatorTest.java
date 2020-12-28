@@ -76,4 +76,9 @@ public class CalculatorTest {
     	assertEquals(2, calculator.add("1001,2"));
     }
 
+	 @Test
+	    public void testwithMltipleDelimiter(){
+	    	assertEquals(3, calculator.add("//[@@@]\n1@@@2"));
+	    }
+	 
 }

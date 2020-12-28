@@ -15,8 +15,20 @@ public class calculator {
 		} else {
 			String delimiter = ",";
 			if (text.matches("//(.*)\n(.*)")) {
-				delimiter = Character.toString(text.charAt(2));
-				text = text.substring(4);
+				String sep = Character.toString(text.charAt(2));
+				if(sep.contentEquals("[")){
+					delimiter = text.substring(3, text.indexOf("]"));
+					
+					
+					
+					delimiter = text.substring(3, text.indexOf("]"));
+					text = text.substring(text.indexOf("]")+1);
+				}else {
+					delimiter = text.substring(2, text.indexOf("\n"));
+					text = text.substring(text.indexOf("\n"+1));
+				}
+//				delimiter = Character.toString(text.charAt(2));
+//				text = text.substring(4);
 			}
 			String numList[] = splitNumbers(text, delimiter + "|\n");
 			return sum(numList);
@@ -36,6 +48,9 @@ public class calculator {
 		String negString = "";
 
 		for (String number : numbers) {
+			if(number.isEmpty()) {
+				number = "0";
+			}
 			if (toInt(number) < 0) {
 				if (negString.equals(""))
 					negString = number;

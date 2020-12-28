@@ -41,10 +41,12 @@ public class calculator {
 					negString = number;
 				else
 					negString += ("," + number);
-			} else {
-				total+=toInt(number);
+			}
+			if (toInt(number) <= 1000) {
+				total += toInt(number);
 			}
 		}
+		
 			if (!negString.equals("")) {
 				throw new IllegalArgumentException("Negatives not allowed: " + negString);
 			}

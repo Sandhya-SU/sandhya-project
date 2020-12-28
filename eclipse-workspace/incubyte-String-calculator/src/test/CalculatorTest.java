@@ -83,7 +83,7 @@ public class CalculatorTest {
 	public void testwithdifferentDelimiter() {
 		assertEquals(3, calculator.add("//[@@][%%]\n1@@%%2"));
 	}
-	
+
 	@Test
 	public void testwithlongDelimiter() {
 		assertEquals(6, calculator.add("//[@@][%%][&&][##]\n1@@%%&&##2@@%%&&##3"));

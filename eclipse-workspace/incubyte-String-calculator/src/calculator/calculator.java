@@ -14,15 +14,20 @@ public class calculator {
 			return 0;
 		} else {
 			String delimiter = ",";
-			if (text.matches("//(.*)\n(.*)")) {
-				int i = 2;
-				if (!Character.toString(text.charAt(i)).contentEquals("[")) {
+			if (text.matches("//(.*)\n(.*)")) {// checking for delimiters other than ,
+				if (!Character.toString(text.charAt(2)).contentEquals("[")) { // if it doesn't have array of delimiters
+																				// then separating the string with the
+																				// provide delimiter
 					delimiter = text.substring(2, text.indexOf("\n"));
 					text = text.substring((text.indexOf("\n") + 1));
 				} else {
 					delimiter = "";
-					while (Character.toString(text.charAt(i)).contentEquals("[")) {
-						if (i == 2) {
+					int i = 2;
+					while (Character.toString(text.charAt(i)).contentEquals("[")) {// checking for multiple delimiter if
+																					// exist looping through it
+						
+						if (i == 2) {// for the first occurrence index of the delimiter will differs so getting the
+										// delimiter based on the index value
 							delimiter = delimiter.concat(text.substring(3, text.indexOf("]")));
 						} else {
 							delimiter = delimiter.concat(text.substring(1, text.indexOf("]")));
@@ -31,13 +36,6 @@ public class calculator {
 						i = 0;
 					}
 				}
-
-				/*
-				 * String sep = Character.toString(text.charAt(2)); if(sep.contentEquals("[")){
-				 * delimiter = text.substring(3, text.indexOf("]")); text =
-				 * text.substring(text.indexOf("]")+1); }else { delimiter = text.substring(2,
-				 * text.indexOf("\n")); text = text.substring(text.indexOf("\n"+1)); }
-				 */
 			}
 			String numList[] = splitNumbers(text, delimiter + "|\n");
 			return sum(numList);

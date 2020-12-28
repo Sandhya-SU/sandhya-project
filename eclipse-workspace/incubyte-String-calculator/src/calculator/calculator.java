@@ -15,20 +15,29 @@ public class calculator {
 		} else {
 			String delimiter = ",";
 			if (text.matches("//(.*)\n(.*)")) {
-				String sep = Character.toString(text.charAt(2));
-				if(sep.contentEquals("[")){
-					delimiter = text.substring(3, text.indexOf("]"));
-					
-					
-					
-					delimiter = text.substring(3, text.indexOf("]"));
-					text = text.substring(text.indexOf("]")+1);
-				}else {
+				int i = 2;
+				if (!Character.toString(text.charAt(i)).contentEquals("[")) {
 					delimiter = text.substring(2, text.indexOf("\n"));
-					text = text.substring(text.indexOf("\n"+1));
+					text = text.substring((text.indexOf("\n") + 1));
+				} else {
+					delimiter = "";
+					while (Character.toString(text.charAt(i)).contentEquals("[")) {
+						if (i == 2) {
+							delimiter = delimiter.concat(text.substring(3, text.indexOf("]")));
+						} else {
+							delimiter = delimiter.concat(text.substring(1, text.indexOf("]")));
+						}
+						text = text.substring(text.indexOf("]") + 1);
+						i = 0;
+					}
 				}
-//				delimiter = Character.toString(text.charAt(2));
-//				text = text.substring(4);
+
+				/*
+				 * String sep = Character.toString(text.charAt(2)); if(sep.contentEquals("[")){
+				 * delimiter = text.substring(3, text.indexOf("]")); text =
+				 * text.substring(text.indexOf("]")+1); }else { delimiter = text.substring(2,
+				 * text.indexOf("\n")); text = text.substring(text.indexOf("\n"+1)); }
+				 */
 			}
 			String numList[] = splitNumbers(text, delimiter + "|\n");
 			return sum(numList);
@@ -48,7 +57,7 @@ public class calculator {
 		String negString = "";
 
 		for (String number : numbers) {
-			if(number.isEmpty()) {
+			if (number.isEmpty()) {
 				number = "0";
 			}
 			if (toInt(number) < 0) {
@@ -61,10 +70,10 @@ public class calculator {
 				total += toInt(number);
 			}
 		}
-		
-			if (!negString.equals("")) {
-				throw new IllegalArgumentException("Negatives not allowed: " + negString);
-			}
+
+		if (!negString.equals("")) {
+			throw new IllegalArgumentException("Negatives not allowed: " + negString);
+		}
 		return total;
 	}
 

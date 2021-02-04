@@ -46,9 +46,9 @@ public class FileDemo {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Please enter the filename: ");
+		System.out.println("Please enter the full file path including file name: ");
 		String filename = scan.nextLine();
-		System.out.println("Please enter a word: ");
+		System.out.println("Please enter a word which you would like to search : ");
 		String word = scan.nextLine();
 		scan.close();
 
